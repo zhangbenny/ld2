@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=yes">
+    <title>LogDNA JS Widget Challenge</title>
+    <meta name="theme-color" content="#db0a5b">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" type="text/css" href="./public/style.css" />
+    <style>
+        .wrapper { width: 100%; background-color: #f1f1f2; }
+        header { width: 100%; height: 56px; background-color: #333; box-shadow: 0 1px 2px rgba(0,0,0,0.4); padding: 0 40px; }
+        .filter-options { margin-right: 60px; }
+        .filter { float: left; margin-top: 10px; margin-left: 20px; user-select: none; }
+        .filter-title { font-size: 18px; font-weight: 100; line-height: 34px; text-shadow: 0 1px 0 rgba(0,0,0,0.6); cursor: pointer; }
+        .dummy-content { width: 100%; height: 600px; text-align: center; padding-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="filter-options">
+                <div class="filter">
+                    <span class="filter-title">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hosts Dropdown
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu"></ul>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </header>
+        <div class="dummy-content">
+            <button type="button" class="btn btn-info btn-lg" id="add-random-host">Add a Random Host</button>
+            <button type="button" class="btn btn-warning btn-lg" id="toggle-error-mode">Toggle Error Mode</button>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mockjax/1.6.2/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="./public/js/mock.js"></script>
+    <script type="text/javascript" src="./public/js/index.js"></script>
+</body>
+</html>

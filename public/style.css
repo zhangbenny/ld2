@@ -1,0 +1,12 @@
+ .open .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dropdown-item {
+}
+
+.results {
+  color: blue;
+}
