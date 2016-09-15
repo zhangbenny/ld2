@@ -1,11 +1,19 @@
 $(function() {
-  let hosts = [];
+  // =======================================
+  // Our model 
+  // =======================================
+  let hosts = []
 
-  const addDropdownItem = (hostName, hostId) => {
-    $('<li></li>').addClass('dropdown-item')
-                  .attr('id', hostId)
-                  .text(hostName)
-                  .appendTo('.dropdown-menu')
+  // =======================================
+  // Templates and adds each host as a 
+  // dropdown item to dropdown menu
+  // =======================================
+  let rawTemplate = $('#li-template').html()
+  let compiledTemplate = _.template(rawTemplate)
+
+  const addDropdownItem = (name, id) => {
+    let host = {name, id}
+    $('.dropdown-menu').append(compiledTemplate(host))
   }
 
   // =======================================
@@ -33,27 +41,22 @@ $(function() {
   // =======================================
   // Creates a random new host
   // =======================================
-  $("#add-random-host").click(function() {
+  $("#add-random-host").click(() => {
     let newHost = Mock.getRandomHost()
     
-    hosts.push()
-
-    $('<li></li>').addClass('dropdown-item')
-                  .attr('id', newHost.id)
-                  .text(newHost.name)
-                  .appendTo('.dropdown-menu')
-  });
+    addDropdownItem(newHost.name, newHost.id)
+  })
   
   // =======================================
   // Event listener transferred from index.html
   // =======================================
-  $('#toggle-error-mode').on('click', () => Mock.toggleMode() )
+  $('#toggle-error-mode').click(() => Mock.toggleMode() )
 
   // =======================================
   // Prevent default when clicking on open
   // dropdown menu 
   // =======================================
-  $('.dropdown-menu').on('click', e => e.stopPropagation() )
+  $('.dropdown-menu').click(e => e.stopPropagation() )
 
   // =======================================
   // Turn on mockjax, request hosts, and 
@@ -62,4 +65,4 @@ $(function() {
   Mock.setup(200)
   getHosts()
 
-});
+})

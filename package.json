@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel ./src/index_es6.js -o ./public/js/index.js && babel ./src/server_es6.js -o server.js",
-    "start": "babel ./src/index_es6.js -o ./public/js/index.js && babel ./src/server_es6.js -o server.js && nodemon server.js"
+    "start": "babel ./src/index_es6.js -o ./public/js/index.js && babel ./src/server_es6.js -o server.js && node server.js"
   },
   "author": "Benny Zhang",
   "license": "ISC"

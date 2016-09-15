@@ -3,8 +3,16 @@
 $(function () {
   var hosts = [];
 
-  var addDropdownItem = function addDropdownItem(hostName, hostId) {
-    $('<li></li>').addClass('dropdown-item').attr('id', hostId).text(hostName).appendTo('.dropdown-menu');
+  // =======================================
+  // Templates and adds each host as a 
+  // dropdown item to dropdown menu
+  // =======================================
+  var rawTemplate = $('#li-template').html();
+  var compiledTemplate = _.template(rawTemplate);
+
+  var addDropdownItem = function addDropdownItem(name, id) {
+    var host = { name: name, id: id };
+    $('.dropdown-menu').append(compiledTemplate(host));
   };
 
   // =======================================
@@ -35,15 +43,13 @@ $(function () {
   $("#add-random-host").click(function () {
     var newHost = Mock.getRandomHost();
 
-    hosts.push();
-
-    $('<li></li>').addClass('dropdown-item').attr('id', newHost.id).text(newHost.name).appendTo('.dropdown-menu');
+    addDropdownItem(newHost.name, newHost.id);
   });
 
   // =======================================
   // Event listener transferred from index.html
   // =======================================
-  $('#toggle-error-mode').on('click', function () {
+  $('#toggle-error-mode').click(function () {
     return Mock.toggleMode();
   });
 
@@ -51,7 +57,7 @@ $(function () {
   // Prevent default when clicking on open
   // dropdown menu 
   // =======================================
-  $('.dropdown-menu').on('click', function (e) {
+  $('.dropdown-menu').click(function (e) {
     return e.stopPropagation();
   });
 
