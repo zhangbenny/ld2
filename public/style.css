@@ -1,4 +1,19 @@
-.open .dropdown-menu {
-  display: flex;
-  flex-flow: column wrap;
+nav {
+  background-color: #333;
+}
+
+.navbar-brand {
+    width: 10vh;
+    height: 10vh;
+    background-color: red;
+}
+
+.navbar-brand:hover {
+    background-color: blue;
+}
+
+.wrapper { width: 100%; background-color: #f1f1f2; }
+
+.dropdown-item {
+  margin: 10px;
 }

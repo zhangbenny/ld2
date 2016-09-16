@@ -1,10 +1,14 @@
 'use strict';
 
 $(function () {
+  // =======================================
+  // Our model 
+  // =======================================
   var hosts = [];
+  var currentHostOrder = 'ASCENDING';
 
   // =======================================
-  // Templates and adds each host as a 
+  // Adds individual hosts as a 
   // dropdown item to dropdown menu
   // =======================================
   var rawTemplate = $('#li-template').html();
@@ -16,11 +20,12 @@ $(function () {
   };
 
   // =======================================
-  // Reloads entire host list as per variable  
+  // Reloads entire host list view
   // =======================================
-  var updateHosts = function updateHosts() {
-    for (var i = 0; i < hosts.length; i++) {
-      addDropdownItem(hosts[i].name, hosts[i].id);
+  var updateList = function updateList(list) {
+    $('#host-list').empty();
+    for (var i = 0; i < list.length; i++) {
+      addDropdownItem(list[i].name, list[i].id);
     }
   };
 
@@ -30,19 +35,50 @@ $(function () {
   // =======================================
   var getHosts = function getHosts() {
     $.get('/get-hosts').done(function (results) {
-      hosts = results;
-      updateHosts();
+      hosts = _.sortByNat(results, function (x) {
+        return x.name.toLowerCase();
+      });
+      updateList(hosts);
     }).fail(function (err) {
       return alert(err);
     });
   };
 
   // =======================================
+  // FUNCTION THAT SENDS ALL THE CHECKED BOX VALUES 
+  // =======================================
+  var sendSelectedHosts = function sendSelectedHosts() {
+    var allHosts = $('#host-list').children;
+    console.log(allHosts);
+  };
+
+  // =======================================
+  // Create a delete endpoint with /delete-host 
+  // =======================================
+  // I will make it from selected hosts and a delete button
+
+  // =======================================
+  // Event listener for toggle list button 
+  // =======================================
+  var toggleHostOrder = function toggleHostOrder() {
+    if (currentHostOrder === 'ASCENDING') {
+      updateList(hosts.reverse());
+      currentHostOrder = 'DESCENDING';
+    } else {
+      updateList(hosts);
+      currentHostOrder = 'ASCENDING';
+    }
+  };
+
+  $('#toggle-host-order').click(function () {
+    return toggleHostOrder();
+  });
+
+  // =======================================
   // Creates a random new host
   // =======================================
   $("#add-random-host").click(function () {
     var newHost = Mock.getRandomHost();
-
     addDropdownItem(newHost.name, newHost.id);
   });
 

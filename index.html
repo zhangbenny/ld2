@@ -20,30 +20,31 @@
 </head>
 <body>
     <div class="wrapper">
-        <header>
-            <div class="filter-options">
-                <div class="filter">
-                    <span class="filter-title">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Hosts Dropdown
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="hostSelection">
-                                <script id="li-template">
-                                    <li class="dropdown-item form-check">
-                                      <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" value="<%= name %>" id="<%= id %>">
-                                        <%= name %>
-                                      </label>
-                                    </li>
-                                </script>
-                            </ul>
-                        </div>
-                    </span>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <img class="navbar-brand" src="public/logo.png">
                 </div>
-            </div>
-        </header>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="active">
+                    <ul class="nav navbar-nav">
+                        <li class="active"></li>
+                        <li class="dropdown" id="select-hosts">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Hosts <span class="caret"></span></a>
+                            <ul id="host-list" class="dropdown-menu" aria-labelledby="hostSelection">
+                            </ul>
+                            <button class="btn btn-primary delete-host"> Delete Selected Hosts </button>
+                            <button id="toggle-host-order" class="btn btn-primary"> Toggle Host Order </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+
         <div class="dummy-content">
             <button type="button" class="btn btn-info btn-lg" id="add-random-host">Add a Random Host</button>
             <button type="button" class="btn btn-warning btn-lg" id="toggle-error-mode">Toggle Error Mode</button>
@@ -52,8 +53,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mockjax/1.6.2/jquery.mockjax.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/lodash/4.15.0/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script type="text/javascript" src="./public/js/natSort.js"></script>
     <script type="text/javascript" src="./public/js/mock.js"></script>
     <script type="text/javascript" src="./public/js/index.js"></script>
+    <script id="li-template">
+        <li class="dropdown-item form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" value="<%= name %>" id="<%= id %>">
+                <%= name %>
+            </label>
+        </li>
+    </script>
 </body>
 </html>

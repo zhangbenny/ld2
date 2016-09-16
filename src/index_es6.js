@@ -3,9 +3,10 @@ $(function() {
   // Our model 
   // =======================================
   let hosts = []
+  let currentHostOrder = 'ASCENDING'
 
   // =======================================
-  // Templates and adds each host as a 
+  // Adds individual hosts as a 
   // dropdown item to dropdown menu
   // =======================================
   let rawTemplate = $('#li-template').html()
@@ -17,11 +18,12 @@ $(function() {
   }
 
   // =======================================
-  // Reloads entire host list as per variable  
+  // Reloads entire host list view
   // =======================================
-  const updateHosts = () => {
-    for (var i = 0; i < hosts.length; i++) {
-      addDropdownItem(hosts[i].name, hosts[i].id)
+  const updateList = (list) => {
+    $('#host-list').empty();
+    for (var i = 0; i < list.length; i++) {
+      addDropdownItem(list[i].name, list[i].id)
     }
   }
   
@@ -32,18 +34,45 @@ $(function() {
   const getHosts = () => {
     $.get('/get-hosts')
       .done(results => {
-        hosts = results
-        updateHosts()
+        hosts = _.sortByNat(results, x => x.name.toLowerCase())
+        updateList(hosts)
       })
       .fail(err => alert(err))
   }
+
+  // =======================================
+  // FUNCTION THAT SENDS ALL THE CHECKED BOX VALUES 
+  // =======================================
+  const sendSelectedHosts = () => {
+    let allHosts = $('#host-list').children
+    console.log(allHosts)
+  }
+
+  // =======================================
+  // Create a delete endpoint with /delete-host 
+  // =======================================
+  // I will make it from selected hosts and a delete button
+
+  // =======================================
+  // Event listener for toggle list button 
+  // =======================================
+  const toggleHostOrder = () => {
+      if (currentHostOrder === 'ASCENDING') { 
+        updateList(hosts.reverse())
+        currentHostOrder = 'DESCENDING'
+      } else {
+        updateList(hosts)
+        currentHostOrder = 'ASCENDING'
+      }
+  }
+
+  $('#toggle-host-order').click(() => toggleHostOrder())
 
   // =======================================
   // Creates a random new host
   // =======================================
   $("#add-random-host").click(() => {
     let newHost = Mock.getRandomHost()
-    
     addDropdownItem(newHost.name, newHost.id)
   })
   

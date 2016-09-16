@@ -23,13 +23,13 @@ If any of the prompt is unclear or you have further questions, you can send them
 Requirements
 ------------
 
-* A dropdown containing a list of 'hosts' should show up when clicking on the 'Hosts Dropdown' element
-* The initial list of hosts can be populated by using an AJAX endpoint '/get-hosts'
-* Each 'host' within the dropdown should be 'checkable' in the sense that a user has the option to select one or many options within this dropdown
+DONE A dropdown containing a list of 'hosts' should show up when clicking on the 'Hosts Dropdown' element
+DONE The initial list of hosts can be populated by using an AJAX endpoint '/get-hosts'
+DONE Each 'host' within the dropdown should be 'checkable' in the sense that a user has the option to select one or many options within this dropdown
 * Each 'host' will have the ability to be 'deleted' via an AJAX endpoint '/delete-host'
 * Upon closing the dropdown, a signal should be sent containing the list of checked options (a simple console.log is ok here)
-* The dropdown itself will be arranged alphabetically upon first render
-* The dropdown should have the ability toggle the ordering to reverse-alphabetical order and back again
+DONE The dropdown itself will be arranged alphabetically upon first render
+DONE The dropdown should have the ability toggle the ordering to reverse-alphabetical order and back again
 * The dropdown should have the ability to perform an in-string search to filter out non-matching hosts from the list
 * Clicking the 'Add a Random Host' button should insert a new random host into the dropdown (you can get the random host by using
   the js function Mock.getRandomHost() as a part of the mock.js file)
