@@ -31,9 +31,9 @@ DONE Each 'host' within the dropdown should be 'checkable' in the sense that a u
 DONE The dropdown itself will be arranged alphabetically upon first render
 DONE The dropdown should have the ability toggle the ordering to reverse-alphabetical order and back again
 DONE The dropdown should have the ability to perform an in-string search to filter out non-matching hosts from the list
-* Clicking the 'Add a Random Host' button should insert a new random host into the dropdown (you can get the random host by using
+DONE Clicking the 'Add a Random Host' button should insert a new random host into the dropdown (you can get the random host by using
   the js function Mock.getRandomHost() as a part of the mock.js file)
-* Error from AJAX requires should show feedback of some sort to indicate an error has occurred
+DONE Error from AJAX requires should show feedback of some sort to indicate an error has occurred
 
 ------
 Extras

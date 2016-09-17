@@ -7,6 +7,16 @@ $(function () {
   // =======================================
   var hosts = [];
   var currentHostOrder = 'ASCENDING';
+  var currentErrorMode = 200;
+
+  // =======================================
+  // Remove from one item from hosts
+  // =======================================
+  var removeHostOnBrowser = function removeHostOnBrowser(unwantedHost) {
+    hosts = hosts.filter(function (host) {
+      return host.name !== unwantedHost;
+    });
+  };
 
   // =======================================
   // Adds individual hosts as a 
@@ -41,7 +51,7 @@ $(function () {
       });
       updateList(hosts);
     }).fail(function (err) {
-      return alert(err);
+      return alert('HTTP Status Code: ' + err.status);
     });
   };
 
@@ -49,9 +59,9 @@ $(function () {
   // Filters and renders the host list
   // does not modify the hosts variable
   // =======================================
-  var filterAndRender = function filterAndRender(searchTerm) {
+  var filterAndRender = function filterAndRender() {
     var filteredList = hosts.filter(function (host) {
-      return host.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return host.name.toLowerCase().includes($('#search-bar').val().toLowerCase());
     });
     updateList(filteredList);
   };
@@ -69,9 +79,25 @@ $(function () {
   };
 
   // =======================================
-  // Create a delete endpoint with /delete-host 
+  // Delete a host and send AJAX call to
+  // '/delete-host' with the array for info
+  // in the request body (if there were an 
+  // actual backend function to handle it)
   // =======================================
-  // I will make it from selected hosts and a delete button
+  var deleteHosts = function deleteHosts(unwantedList) {
+    _.forEach(unwantedList, function (unwantedHost) {
+      $.ajax({
+        url: '/delete-host',
+        type: 'delete',
+        data: JSON.stringify({ deleteThisGuy: unwantedHost }),
+        dataType: 'json'
+      }).done(removeHostOnBrowser(unwantedHost)).fail(function (err) {
+        return alert('HTTP Error Code: ' + err.status);
+      });
+    });
+
+    filterAndRender();
+  };
 
   // =======================================
   // Event listener for toggle list button 
@@ -91,15 +117,16 @@ $(function () {
   });
 
   // =======================================
-  // Creates a random new host
+  // Click handler to create a random new host
   // =======================================
   $("#add-random-host").click(function () {
     var newHost = Mock.getRandomHost();
+    hosts.push(newHost);
     addDropdownItem(newHost.name, newHost.id);
   });
 
   // =======================================
-  // Event listener transferred from index.html
+  // Click handler transferred from index.html
   // =======================================
   $('#toggle-error-mode').click(function () {
     return Mock.toggleMode();
@@ -109,7 +136,7 @@ $(function () {
   // Event handler for typing into search box 
   // =======================================
   $("#search-bar").change(function () {
-    return filterAndRender($('#search-bar').val());
+    return filterAndRender();
   });
 
   // =======================================
@@ -121,11 +148,22 @@ $(function () {
   });
 
   // =======================================
+  // Click handler to delete selected hosts
+  // =======================================
+  $('#delete-hosts').click(function () {
+    var selectedHosts = $('.host-checkbox').filter(function (i, el) {
+      return el.checked;
+    }).map(function (i, el) {
+      return el.value;
+    }).get();
+    deleteHosts(selectedHosts);
+  });
+
+  // =======================================
   // TESTERTESTERTESTER DOES WHAT YOU WANT! 
   // =======================================
-  $('#TESTERTESTERTESTER').click(function () {
-    return alert('U DUN GOOFED');
-  });
+
+  $('#TESTERTESTERTESTER').click(function () {});
 
   // =======================================
   // Turn on mockjax, request hosts, and 

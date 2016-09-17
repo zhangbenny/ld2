@@ -5,6 +5,15 @@ $(function() {
   // =======================================
   let hosts = []
   let currentHostOrder = 'ASCENDING'
+  let currentErrorMode = 200
+
+
+  // =======================================
+  // Remove from one item from hosts
+  // =======================================
+  const removeHostOnBrowser = (unwantedHost) => {
+    hosts = hosts.filter(host => host.name !== unwantedHost)
+  }
 
   // =======================================
   // Adds individual hosts as a 
@@ -38,15 +47,15 @@ $(function() {
         hosts = _.sortByNat(results, x => x.name.toLowerCase())
         updateList(hosts)
       })
-      .fail(err => alert(err))
+      .fail(err => alert('HTTP Status Code: ' + err.status))
   }
 
   // =======================================
   // Filters and renders the host list
   // does not modify the hosts variable
   // =======================================
-  const filterAndRender = (searchTerm) => {
-    let filteredList = hosts.filter((host) => host.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filterAndRender = () => {
+    let filteredList = hosts.filter((host) => host.name.toLowerCase().includes($('#search-bar').val().toLowerCase()))
     updateList(filteredList)
   }
 
@@ -61,9 +70,24 @@ $(function() {
   }
 
   // =======================================
-  // Create a delete endpoint with /delete-host 
+  // Delete a host and send AJAX call to
+  // '/delete-host' with the array for info
+  // in the request body (if there were an 
+  // actual backend function to handle it)
   // =======================================
-  // I will make it from selected hosts and a delete button
+  const deleteHosts = (unwantedList) => {
+    _.forEach(unwantedList, unwantedHost => {
+      $.ajax({
+               url: '/delete-host',
+               type: 'delete',
+               data: JSON.stringify({deleteThisGuy: unwantedHost}),
+               dataType: 'json',
+             }).done(removeHostOnBrowser(unwantedHost))
+               .fail(err => alert('HTTP Error Code: ' + err.status))
+    })
+
+    filterAndRender()
+  }
 
   // =======================================
   // Event listener for toggle list button 
@@ -81,7 +105,7 @@ $(function() {
   $('#toggle-host-order').click(() => toggleHostOrder())
 
   // =======================================
-  // Creates a random new host
+  // Click handler to create a random new host
   // =======================================
   $("#add-random-host").click(() => {
     let newHost = Mock.getRandomHost()
@@ -90,14 +114,14 @@ $(function() {
   })
   
   // =======================================
-  // Event listener transferred from index.html
+  // Click handler transferred from index.html
   // =======================================
   $('#toggle-error-mode').click(() => Mock.toggleMode() )
 
   // =======================================
   // Event handler for typing into search box 
   // =======================================
-  $("#search-bar").change(() => filterAndRender($('#search-bar').val()))
+  $("#search-bar").change(() => filterAndRender())
 
   // =======================================
   // Prevent default when clicking on open
@@ -106,9 +130,22 @@ $(function() {
   $('.dropdown-menu').click(e => e.stopPropagation() )
 
   // =======================================
+  // Click handler to delete selected hosts
+  // =======================================
+  $('#delete-hosts').click(() => {
+    let selectedHosts = $('.host-checkbox').filter((i, el) => el.checked)
+                                           .map((i, el) => el.value)
+                                           .get()
+    deleteHosts(selectedHosts)
+  })
+
+  // =======================================
   // TESTERTESTERTESTER DOES WHAT YOU WANT! 
   // =======================================
-  $('#TESTERTESTERTESTER').click(() => alert('U DUN GOOFED'))
+  
+  $('#TESTERTESTERTESTER').click(() => {
+    
+  })
 
   // =======================================
   // Turn on mockjax, request hosts, and 
