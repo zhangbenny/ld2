@@ -160,6 +160,12 @@ $(function () {
   });
 
   // =======================================
+  // Event handler for when the dropdown
+  // closes 
+  // =======================================
+  $('ul.navbar-nav').on('hide.bs.dropdown', sendSelectedHosts);
+
+  // =======================================
   // TESTERTESTERTESTER DOES WHAT YOU WANT! 
   // =======================================
 
