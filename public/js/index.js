@@ -2,10 +2,6 @@
 
 $(function () {
 
-  $('#TESTERTESTERTESTER').click(function () {
-    return sendSelectedHosts();
-  });
-
   // =======================================
   // Our model 
   // =======================================
@@ -47,6 +43,17 @@ $(function () {
     }).fail(function (err) {
       return alert(err);
     });
+  };
+
+  // =======================================
+  // Filters and renders the host list
+  // does not modify the hosts variable
+  // =======================================
+  var filterAndRender = function filterAndRender(searchTerm) {
+    var filteredList = hosts.filter(function (host) {
+      return host.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    updateList(filteredList);
   };
 
   // =======================================
@@ -99,11 +106,25 @@ $(function () {
   });
 
   // =======================================
+  // Event handler for typing into search box 
+  // =======================================
+  $("#search-bar").change(function () {
+    return filterAndRender($('#search-bar').val());
+  });
+
+  // =======================================
   // Prevent default when clicking on open
   // dropdown menu 
   // =======================================
   $('.dropdown-menu').click(function (e) {
     return e.stopPropagation();
+  });
+
+  // =======================================
+  // TESTERTESTERTESTER DOES WHAT YOU WANT! 
+  // =======================================
+  $('#TESTERTESTERTESTER').click(function () {
+    return alert('U DUN GOOFED');
   });
 
   // =======================================

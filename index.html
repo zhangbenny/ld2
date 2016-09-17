@@ -9,47 +9,49 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
     <link rel="stylesheet" type="text/css" href="./public/style.css" />
-    <style>
-        .wrapper { width: 100%; background-color: #f1f1f2; }
-        header { width: 100%; height: 56px; background-color: #333; box-shadow: 0 1px 2px rgba(0,0,0,0.4); padding: 0 40px; }
-        .filter-options { margin-right: 60px; }
-        .filter { float: left; margin-top: 10px; margin-left: 20px; user-select: none; }
-        .filter-title { font-size: 18px; font-weight: 100; line-height: 34px; text-shadow: 0 1px 0 rgba(0,0,0,0.6); cursor: pointer; }
-        .dummy-content { width: 100%; height: 600px; text-align: center; padding-top: 40px; }
-    </style>
+
 </head>
 <body>
-    <div class="wrapper">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <img class="navbar-brand" src="public/logo.png">
-                </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="active">
-                    <ul class="nav navbar-nav">
-                        <li class="active"></li>
-                        <li class="dropdown" id="select-hosts">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Hosts <span class="caret"></span></a>
-                            <ul id="host-list" class="dropdown-menu" aria-labelledby="hostSelection">
-                            </ul>
-                            <button class="btn btn-primary delete-host"> Delete Selected Hosts </button>
-                            <button id="toggle-host-order" class="btn btn-primary"> Toggle Host Order </button>
-                            <button id="TESTERTESTERTESTER" class="btn btn-danger"> TESTERTESTERTESTER </button>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" src="public/logo.png">
+          </a>
+        </div>
 
-                        </li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" id="search-bar" placeholder="Search for host...">
+            </div>
+          </form>
+          <ul class="nav navbar-nav">
+                <li class="dropdown" id="select-hosts">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Hosts <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="host-list" aria-labelledby="hostSelection">
                     </ul>
-                </div>
-
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
+                </li>
+           </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
         <div class="dummy-content">
             <button type="button" class="btn btn-info btn-lg" id="add-random-host">Add a Random Host</button>
             <button type="button" class="btn btn-warning btn-lg" id="toggle-error-mode">Toggle Error Mode</button>
+            <button type="button" class="btn btn-success btn-lg" id="TESTERTESTERTESTER">TESTERTESTERTESTER</button>
+            <button type="button" class="btn btn-danger btn-lg" id="delete-host">Delete Selected Hosts</button>
+            <button type="button" class="btn btn-secondary btn-lg" id="toggle-host-order">Toggle Host Order</button>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

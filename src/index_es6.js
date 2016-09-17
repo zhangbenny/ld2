@@ -1,7 +1,5 @@
 $(function() {
 
-  $('#TESTERTESTERTESTER').click(() => sendSelectedHosts())
-
   // =======================================
   // Our model 
   // =======================================
@@ -44,6 +42,15 @@ $(function() {
   }
 
   // =======================================
+  // Filters and renders the host list
+  // does not modify the hosts variable
+  // =======================================
+  const filterAndRender = (searchTerm) => {
+    let filteredList = hosts.filter((host) => host.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    updateList(filteredList)
+  }
+
+  // =======================================
   // FUNCTION THAT SENDS ALL THE CHECKED BOX VALUES 
   // =======================================
   const sendSelectedHosts = () => {
@@ -78,6 +85,7 @@ $(function() {
   // =======================================
   $("#add-random-host").click(() => {
     let newHost = Mock.getRandomHost()
+    hosts.push(newHost)
     addDropdownItem(newHost.name, newHost.id)
   })
   
@@ -87,10 +95,20 @@ $(function() {
   $('#toggle-error-mode').click(() => Mock.toggleMode() )
 
   // =======================================
+  // Event handler for typing into search box 
+  // =======================================
+  $("#search-bar").change(() => filterAndRender($('#search-bar').val()))
+
+  // =======================================
   // Prevent default when clicking on open
   // dropdown menu 
   // =======================================
   $('.dropdown-menu').click(e => e.stopPropagation() )
+
+  // =======================================
+  // TESTERTESTERTESTER DOES WHAT YOU WANT! 
+  // =======================================
+  $('#TESTERTESTERTESTER').click(() => alert('U DUN GOOFED'))
 
   // =======================================
   // Turn on mockjax, request hosts, and 
