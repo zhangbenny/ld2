@@ -1,6 +1,11 @@
 'use strict';
 
 $(function () {
+
+  $('#TESTERTESTERTESTER').click(function () {
+    return sendSelectedHosts();
+  });
+
   // =======================================
   // Our model 
   // =======================================
@@ -48,8 +53,12 @@ $(function () {
   // FUNCTION THAT SENDS ALL THE CHECKED BOX VALUES 
   // =======================================
   var sendSelectedHosts = function sendSelectedHosts() {
-    var allHosts = $('#host-list').children;
-    console.log(allHosts);
+    var selectedHosts = $('.host-checkbox').filter(function (i, el) {
+      return el.checked;
+    }).map(function (i, el) {
+      return el.value;
+    }).get();
+    console.log(selectedHosts);
   };
 
   // =======================================

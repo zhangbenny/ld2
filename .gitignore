@@ -1,3 +1,4 @@
 .DS_Store
 node_modules/
 js-challenge.zip
+npm-debug.log

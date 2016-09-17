@@ -1,4 +1,7 @@
 $(function() {
+
+  $('#TESTERTESTERTESTER').click(() => sendSelectedHosts())
+
   // =======================================
   // Our model 
   // =======================================
@@ -44,8 +47,10 @@ $(function() {
   // FUNCTION THAT SENDS ALL THE CHECKED BOX VALUES 
   // =======================================
   const sendSelectedHosts = () => {
-    let allHosts = $('#host-list').children
-    console.log(allHosts)
+    let selectedHosts = $('.host-checkbox').filter((i, el) => el.checked)
+                                           .map((i, el) => el.value)
+                                           .get()
+    console.log(selectedHosts)
   }
 
   // =======================================

@@ -37,6 +37,8 @@
                             </ul>
                             <button class="btn btn-primary delete-host"> Delete Selected Hosts </button>
                             <button id="toggle-host-order" class="btn btn-primary"> Toggle Host Order </button>
+                            <button id="TESTERTESTERTESTER" class="btn btn-danger"> TESTERTESTERTESTER </button>
+
                         </li>
                     </ul>
                 </div>
@@ -60,7 +62,7 @@
     <script id="li-template">
         <li class="dropdown-item form-check">
             <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" value="<%= name %>" id="<%= id %>">
+                <input class="host-checkbox form-check-input" type="checkbox" value="<%= name %>" id="<%= id %>">
                 <%= name %>
             </label>
         </li>
