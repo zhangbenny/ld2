@@ -23,7 +23,11 @@ $(function() {
   let compiledTemplate = _.template(rawTemplate)
 
   const addDropdownItem = (host) => {
-    $('#host-list').append(compiledTemplate(host))
+    if (host.highlightedName) {
+      $('#host-list').append(compiledTemplate(Object.assign({}, host, {highlightedName: host.highlightedName})))
+    } else {
+      $('#host-list').append(compiledTemplate(Object.assign({}, host, {highlightedName: host.name})))
+    }
   }
 
   // =======================================
@@ -62,8 +66,16 @@ $(function() {
   // does not modify the hosts variable
   // =======================================
   const filterAndRender = () => {
-    let filteredList = hosts.filter((host) => host.name.toLowerCase().includes($('#search-bar').val().toLowerCase()))
-    updateList(filteredList)
+    let search = $('#search-bar').val()
+    let filteredList = hosts.filter(host => host.name.toLowerCase().includes(search.toLowerCase()))
+    let highlightedFilteredList = _.map(filteredList, host => {
+      let original = host.name
+      let i = original.toLowerCase().indexOf(search.toLowerCase())
+      let highlightedName = original.substring(0, i) + '<span class="highlighted">' + original.substr(i, search.length) + '</span>' + original.substring(i + search.length, original.length)
+      return Object.assign({}, host, {highlightedName})
+    })
+
+    updateList(highlightedFilteredList)
   }
 
   // =======================================

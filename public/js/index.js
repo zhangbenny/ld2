@@ -27,7 +27,11 @@ $(function () {
   var compiledTemplate = _.template(rawTemplate);
 
   var addDropdownItem = function addDropdownItem(host) {
-    $('#host-list').append(compiledTemplate(host));
+    if (host.highlightedName) {
+      $('#host-list').append(compiledTemplate(Object.assign({}, host, { highlightedName: host.highlightedName })));
+    } else {
+      $('#host-list').append(compiledTemplate(Object.assign({}, host, { highlightedName: host.name })));
+    }
   };
 
   // =======================================
@@ -67,10 +71,18 @@ $(function () {
   // does not modify the hosts variable
   // =======================================
   var filterAndRender = function filterAndRender() {
+    var search = $('#search-bar').val();
     var filteredList = hosts.filter(function (host) {
-      return host.name.toLowerCase().includes($('#search-bar').val().toLowerCase());
+      return host.name.toLowerCase().includes(search.toLowerCase());
     });
-    updateList(filteredList);
+    var highlightedFilteredList = _.map(filteredList, function (host) {
+      var original = host.name;
+      var i = original.toLowerCase().indexOf(search.toLowerCase());
+      var highlightedName = original.substring(0, i) + '<span class="highlighted">' + original.substr(i, search.length) + '</span>' + original.substring(i + search.length, original.length);
+      return Object.assign({}, host, { highlightedName: highlightedName });
+    });
+
+    updateList(highlightedFilteredList);
   };
 
   // =======================================

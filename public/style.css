@@ -30,3 +30,7 @@ img {
 .dropdown-item {
   margin: 10px;
 }
+
+.highlighted {
+  background-color: yellow;
+}

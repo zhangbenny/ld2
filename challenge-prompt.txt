@@ -40,7 +40,7 @@ Extras
 ------
 
 * The dropdown will have an optional ability to quickly select/deselect all options
-* When using the in-string search, the matching portion of the hosts will be highlighted to indicate why/how it matched
+DONE When using the in-string search, the matching portion of the hosts will be highlighted to indicate why/how it matched
 
 ---------------------------
 Constraints and Assumptions
