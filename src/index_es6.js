@@ -22,18 +22,25 @@ $(function() {
   let rawTemplate = $('#li-template').html()
   let compiledTemplate = _.template(rawTemplate)
 
-  const addDropdownItem = (name, id) => {
-    let host = {name, id}
-    $('.dropdown-menu').append(compiledTemplate(host))
+  const addDropdownItem = (host) => {
+    $('#host-list').append(compiledTemplate(host))
   }
 
   // =======================================
   // Reloads entire host list view
   // =======================================
   const updateList = (list) => {
-    $('#host-list').empty();
+    let separator = $('<li></li>').attr('role', 'separator')
+                                  .addClass('divider')
+
+    $('#host-list').empty()
+
+    addDropdownItem({name: 'select all', id: 'select-all-checkbox'})
+    $('.form-check-label').attr('id', 'select-all-button')
+    $('#host-list').append(separator)
+
     for (var i = 0; i < list.length; i++) {
-      addDropdownItem(list[i].name, list[i].id)
+      addDropdownItem(list[i])
     }
   }
   
@@ -90,7 +97,7 @@ $(function() {
   }
 
   // =======================================
-  // Event listener for toggle list button 
+  // Click handler for toggle list button 
   // =======================================
   const toggleHostOrder = () => {
       if (currentHostOrder === 'ASCENDING') { 
@@ -110,7 +117,7 @@ $(function() {
   $("#add-random-host").click(() => {
     let newHost = Mock.getRandomHost()
     hosts.push(newHost)
-    addDropdownItem(newHost.name, newHost.id)
+    addDropdownItem(newHost)
   })
   
   // =======================================
@@ -119,7 +126,8 @@ $(function() {
   $('#toggle-error-mode').click(() => Mock.toggleMode() )
 
   // =======================================
-  // Event handler for typing into search box 
+  // Event handler triggered when losing
+  // focus from search-bar
   // =======================================
   $("#search-bar").change(() => filterAndRender())
 
@@ -137,6 +145,18 @@ $(function() {
                                            .map((i, el) => el.value)
                                            .get()
     deleteHosts(selectedHosts)
+  })
+
+  // =======================================
+  // Click handler for select/deselect all 
+  // =======================================
+  $('#select-all-checkbox').change(() => { 
+    alert('registering')
+    if (this.checked) {
+      $('.host-checkbox').attr('checked', true)
+    } else {
+      $('.host-checkbox').attr('checked', false)
+    }
   })
 
   // =======================================

@@ -1,6 +1,7 @@
 'use strict';
 
 $(function () {
+  var _this = this;
 
   // =======================================
   // Our model 
@@ -25,18 +26,24 @@ $(function () {
   var rawTemplate = $('#li-template').html();
   var compiledTemplate = _.template(rawTemplate);
 
-  var addDropdownItem = function addDropdownItem(name, id) {
-    var host = { name: name, id: id };
-    $('.dropdown-menu').append(compiledTemplate(host));
+  var addDropdownItem = function addDropdownItem(host) {
+    $('#host-list').append(compiledTemplate(host));
   };
 
   // =======================================
   // Reloads entire host list view
   // =======================================
   var updateList = function updateList(list) {
+    var separator = $('<li></li>').attr('role', 'separator').addClass('divider');
+
     $('#host-list').empty();
+
+    addDropdownItem({ name: 'select all', id: 'select-all-checkbox' });
+    $('.form-check-label').attr('id', 'select-all-button');
+    $('#host-list').append(separator);
+
     for (var i = 0; i < list.length; i++) {
-      addDropdownItem(list[i].name, list[i].id);
+      addDropdownItem(list[i]);
     }
   };
 
@@ -100,7 +107,7 @@ $(function () {
   };
 
   // =======================================
-  // Event listener for toggle list button 
+  // Click handler for toggle list button 
   // =======================================
   var toggleHostOrder = function toggleHostOrder() {
     if (currentHostOrder === 'ASCENDING') {
@@ -122,7 +129,7 @@ $(function () {
   $("#add-random-host").click(function () {
     var newHost = Mock.getRandomHost();
     hosts.push(newHost);
-    addDropdownItem(newHost.name, newHost.id);
+    addDropdownItem(newHost);
   });
 
   // =======================================
@@ -133,7 +140,8 @@ $(function () {
   });
 
   // =======================================
-  // Event handler for typing into search box 
+  // Event handler triggered when losing
+  // focus from search-bar
   // =======================================
   $("#search-bar").change(function () {
     return filterAndRender();
@@ -157,6 +165,18 @@ $(function () {
       return el.value;
     }).get();
     deleteHosts(selectedHosts);
+  });
+
+  // =======================================
+  // Click handler for select/deselect all 
+  // =======================================
+  $('#select-all-checkbox').change(function () {
+    alert('registering');
+    if (_this.checked) {
+      $('.host-checkbox').attr('checked', true);
+    } else {
+      $('.host-checkbox').attr('checked', false);
+    }
   });
 
   // =======================================
