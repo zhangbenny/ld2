@@ -6,5 +6,7 @@
 ```
 npm start
 ```
-
-- Otherwise, the program is purely front-end and requires no package handling because all dependencies are handled with CDN's or staticly served.
+- The program is purely front-end and requires no package handling, so the use of the server is not necessary and can simply be run with a browser by opening:
+```
+index.html
+```
