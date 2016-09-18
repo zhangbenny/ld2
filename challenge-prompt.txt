@@ -39,7 +39,7 @@ DONE Error from AJAX requires should show feedback of some sort to indicate an e
 Extras
 ------
 
-* The dropdown will have an optional ability to quickly select/deselect all options
+DONE The dropdown will have an optional ability to quickly select/deselect all options
 DONE When using the in-string search, the matching portion of the hosts will be highlighted to indicate why/how it matched
 
 ---------------------------

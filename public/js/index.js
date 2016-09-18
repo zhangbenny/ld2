@@ -1,7 +1,6 @@
 'use strict';
 
 $(function () {
-  var _this = this;
 
   // =======================================
   // Our model 
@@ -40,11 +39,13 @@ $(function () {
   var updateList = function updateList(list) {
     var separator = $('<li></li>').attr('role', 'separator').addClass('divider');
 
-    $('#host-list').empty();
+    var dropdown = $('#host-list');
+
+    dropdown.empty();
 
     addDropdownItem({ name: 'select all', id: 'select-all-checkbox' });
     $('.form-check-label').attr('id', 'select-all-button');
-    $('#host-list').append(separator);
+    dropdown.append(separator);
 
     for (var i = 0; i < list.length; i++) {
       addDropdownItem(list[i]);
@@ -182,12 +183,12 @@ $(function () {
   // =======================================
   // Click handler for select/deselect all 
   // =======================================
-  $('#select-all-checkbox').change(function () {
-    alert('registering');
-    if (_this.checked) {
-      $('.host-checkbox').attr('checked', true);
+  $('#host-list').on('change', '#select-all-checkbox', function () {
+    var checked = $('#select-all-checkbox').prop('checked');
+    if (checked) {
+      $('.host-checkbox').prop('checked', true);
     } else {
-      $('.host-checkbox').attr('checked', false);
+      $('.host-checkbox').prop('checked', false);
     }
   });
 

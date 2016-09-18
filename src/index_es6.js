@@ -36,12 +36,14 @@ $(function() {
   const updateList = (list) => {
     let separator = $('<li></li>').attr('role', 'separator')
                                   .addClass('divider')
+    
+    let dropdown = $('#host-list')
 
-    $('#host-list').empty()
-
+    dropdown.empty()
+    
     addDropdownItem({name: 'select all', id: 'select-all-checkbox'})
     $('.form-check-label').attr('id', 'select-all-button')
-    $('#host-list').append(separator)
+    dropdown.append(separator)
 
     for (var i = 0; i < list.length; i++) {
       addDropdownItem(list[i])
@@ -162,12 +164,12 @@ $(function() {
   // =======================================
   // Click handler for select/deselect all 
   // =======================================
-  $('#select-all-checkbox').change(() => { 
-    alert('registering')
-    if (this.checked) {
-      $('.host-checkbox').attr('checked', true)
+  $('#host-list').on('change', '#select-all-checkbox', () => { 
+    let checked = $('#select-all-checkbox').prop('checked');
+    if (checked) {
+      $('.host-checkbox').prop('checked', true)
     } else {
-      $('.host-checkbox').attr('checked', false)
+      $('.host-checkbox').prop('checked', false)
     }
   })
 
